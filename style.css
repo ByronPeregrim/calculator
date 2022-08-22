@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: solid black;
+    border-width: 2px;
+}
+
+@font-face{
+    font-family:'digital-clock-font';
+    src: url(fonts/digital-7/digital-7.ttf);
+}
+
+#wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    place-content: center;
+}
+
+#main-container {
+    border: solid black;
+    place-self: center;
+    height: 600px;
+    width: 400px;
+    background-color: lightslategray;
+    border-radius: 20px;
+}
+
+#displays {
+    background-color: antiquewhite;
+    text-align: end;
+    margin: 20px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 10px;
+
+}
+
+#small-display,
+#large-display {
+    margin: 10px;
+    margin-right: 20px;
+    font-family: 'digital-clock-font';
+    font-size: 1.5rem;
+    border: none;
+}
+
+#large-display {
+    font-size: 2.5rem;
+}
+
+#button-container {
+    height: 400px;
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 10px;
+    border: none;
+}
+
+.button {
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+#clear-button {
+    grid-column: 1 / span 2;
+    background-color: lightcoral;
+}
+
+#delete-button {
+    grid-column: 3 / span 2;
+    background-color: lightblue;
+}
+
