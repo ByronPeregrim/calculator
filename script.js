@@ -49,6 +49,11 @@ for (var i = 0; i < numbers.length; i++) {
     });
 }
 
+deleteButton.addEventListener('click', function () {
+    smallDisplay.textContent = smallDisplay.textContent.slice(0, -1);
+    num = Math.floor(num / 10);
+})
+
 function add(a, b) {
     return a + b;
 }
@@ -77,8 +82,14 @@ function operate(operator, a, b) {
             return multiply(a, b);
             break;
         case "/":
-            return divide(a, b);
-            break;
+            if (b === 0) {
+                return largeDisplay.textContent = "Cannot divide by 0.";
+                break;
+            }
+            else {
+                return divide(a, b);
+                break;
+            }
         default:
             return "OPERATE FUNCTION ERROR";
     }
@@ -95,6 +106,8 @@ addButton.addEventListener("click", function () {
     operator = this.textContent;
     num = 0;
 })
+
+
 
 subtractButton.addEventListener("click", function () {
     if (!(largeDisplay.textContent)) {
@@ -133,9 +146,15 @@ divideButton.addEventListener("click", function () {
 })
 
 equalButton.addEventListener('click', function () {
-    b = num;
-    sum = operate(operator, a, b);
-    largeDisplay.textContent = sum;
+    if ((a || a === 0) && (num || num === 0) && operator){
+        b = num;
+        sum = operate(operator, a, b);
+        sum = +sum.toFixed(8);
+        largeDisplay.textContent = sum;
+    }
+    else {
+        largeDisplay.textContent = "ERROR";
+    }
 })
 
 clearButton.addEventListener('click', function () {
@@ -145,6 +164,97 @@ clearButton.addEventListener('click', function () {
     b = 0;
     largeDisplay.textContent = "";
     smallDisplay.textContent = "";
-    
-    
+})
+
+decimalButton.addEventListener('click', function () {
+    if (num % 1 === 0) {
+        smallDisplay.textContent += this.textContent;
+        num += this.textContent;
+    }    
+})
+
+deleteButton.addEventListener('click', function() {
+
+})
+
+window.addEventListener('keydown', function(e) {
+    const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if(!key) return;
+    if (key.classList.contains('number')) {
+    smallDisplay.textContent += key.textContent;
+    num += key.textContent;
+    num = +num;
+    }
+    else if (key.classList.contains('add')) {
+        if (!(largeDisplay.textContent)) {
+            a = num;
+        }
+        else {
+            a = sum;
+        }
+        smallDisplay.textContent += " " + key.textContent + " ";
+        operator = key.textContent;
+        num = 0;
+    }
+    else if (key.classList.contains('multiply')) {
+        if (!(largeDisplay.textContent)) {
+            a = num;
+        }
+        else {
+            a = sum;
+        }
+        smallDisplay.textContent += " * ";
+        operator = "*";
+        num = 0;
+    }
+    else if (key.classList.contains('divide')) {
+        if (!(largeDisplay.textContent)) {
+            a = num;
+        }
+        else {
+            a = sum;
+        }
+        smallDisplay.textContent += " " + key.textContent + " ";
+        operator = "/";
+        num = 0;
+    }
+    else if (key.classList.contains('subtract')) {
+        if (!(largeDisplay.textContent)) {
+            a = num;
+        }
+        else {
+            a = sum;
+        }
+        smallDisplay.textContent += " " + key.textContent + " ";
+        operator = key.textContent;
+        num = 0;
+    }
+    else if (key.classList.contains('equal')) {
+        if ((a || a === 0) && (num || num === 0) && operator){
+            b = num;
+            sum = operate(operator, a, b);
+            sum = +sum.toFixed(8);
+            largeDisplay.textContent = sum;
+        }
+        else {
+            largeDisplay.textContent = "ERROR";
+        }
+    }
+    else if (key.classList.contains('decimal')) {
+        if (num % 1 === 0) {
+            smallDisplay.textContent += key.textContent;
+            num += key.textContent;
+        }   
+    }
+    else if (key.classList.contains('clear')) {
+        num = 0;
+        sum = 0;
+        a = 0;
+        b = 0;
+        largeDisplay.textContent = "";
+        smallDisplay.textContent = "";
+    }
+    else if (key.classList.contains('delete')) {
+        
+    }
 })

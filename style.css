@@ -67,6 +67,10 @@
     transition: all 0.07s;
 }
 
+.operator {
+    background-color: rgb(255, 185, 55);
+}
+
 .clicked {
     transform: scale(1.05);
     background-color: lightgray;
